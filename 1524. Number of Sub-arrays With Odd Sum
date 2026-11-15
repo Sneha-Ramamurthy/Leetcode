@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int numOfSubarrays(vector<int>& arr) {
+        // space optimised dp
+        int mod = 1e9 + 7;
+        long long odd = 0;
+        long long even = 0;
+        long long ans = 0;
+
+        for (int x : arr) {
+            long long newodd, neweven;
+
+            if (x % 2 == 1) {
+                newodd = even + 1;
+                neweven = odd;
+            } else {
+                newodd = odd;
+                neweven = even + 1;
+            }
+            odd = newodd % mod;
+            even = neweven % mod;
+
+            ans = (ans + odd) % mod;
+        }
+        return ans;
+    }
+};
